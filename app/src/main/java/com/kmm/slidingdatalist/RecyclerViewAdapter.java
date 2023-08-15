@@ -1,5 +1,6 @@
 package com.kmm.slidingdatalist;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,11 +9,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.List;
+
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
-    private final String[] data;
+    private final List<String> data;
 
-    public RecyclerViewAdapter(String[] data) {
+    public RecyclerViewAdapter(List<String> data) {
         this.data = data;
     }
 
@@ -26,12 +29,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.textView.setText(data[position]);
+        holder.textView.setText(data.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return data.length;
+        return data.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
