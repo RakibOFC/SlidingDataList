@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
         ViewPager viewPager = findViewById(R.id.viewPager);
         viewPager.setAdapter(new ViewPagerAdapter(10));
         viewPager.setRotation(180);
+        viewPager.setCurrentItem(4);
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override

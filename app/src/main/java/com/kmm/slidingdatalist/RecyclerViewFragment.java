@@ -23,7 +23,7 @@ public class RecyclerViewFragment extends FrameLayout {
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
     }
 
-    public void setAdapter(RecyclerView.Adapter adapter) {
+    public void setAdapter(RecyclerViewAdapter adapter) {
         recyclerView.setAdapter(adapter);
     }
 }
