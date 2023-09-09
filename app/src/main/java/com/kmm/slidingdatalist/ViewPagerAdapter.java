@@ -1,5 +1,6 @@
 package com.kmm.slidingdatalist;
 
+import android.annotation.SuppressLint;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -11,10 +12,23 @@ import java.util.List;
 
 public class ViewPagerAdapter extends PagerAdapter {
 
-    private final int totalSurah;
+    private final int noOfList;
+    private RecyclerViewAdapter adapter;
 
-    public ViewPagerAdapter(int totalSurah) {
-        this.totalSurah = totalSurah;
+    public ViewPagerAdapter(int noOfList) {
+        this.noOfList = noOfList;
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void setTextSizes(float textSize) {
+
+        try {
+            adapter.setTextSizes(textSize);
+            this.notifyDataSetChanged();
+
+        } catch (NullPointerException exception) {
+            exception.printStackTrace();
+        }
     }
 
     @NonNull
@@ -28,7 +42,7 @@ public class ViewPagerAdapter extends PagerAdapter {
         }
 
         RecyclerViewFragment pagerView = new RecyclerViewFragment(container.getContext());
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(stringList);
+        adapter = new RecyclerViewAdapter(stringList);
 
         pagerView.setAdapter(adapter);
         pagerView.setRotation(180);
@@ -43,7 +57,7 @@ public class ViewPagerAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return totalSurah;
+        return noOfList;
     }
 
     @Override
