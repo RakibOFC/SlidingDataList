@@ -41,18 +41,18 @@ public class ViewPagerAdapter extends PagerAdapter {
             stringList.add("Item " + (position + 1) + ": " + i);
         }
 
-        RecyclerViewFragment pagerView = new RecyclerViewFragment(container.getContext());
+        RecyclerViewLayout layoutView = new RecyclerViewLayout(container.getContext());
         adapter = new RecyclerViewAdapter(stringList);
 
-        pagerView.setAdapter(adapter);
-        pagerView.setRotation(180);
-        container.addView(pagerView);
-        return pagerView;
+        layoutView.setAdapter(adapter);
+        layoutView.setRotation(180);
+        container.addView(layoutView);
+        return layoutView;
     }
 
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
-        container.removeView((RecyclerViewFragment) object);
+        container.removeView((RecyclerViewLayout) object);
     }
 
     @Override

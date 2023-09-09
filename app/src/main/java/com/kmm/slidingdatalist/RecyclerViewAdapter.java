@@ -1,6 +1,7 @@
 package com.kmm.slidingdatalist;
 
 import android.annotation.SuppressLint;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,9 +42,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-
-        holder.textView.setTextSize(textSize > 14 ? textSize : 14);
-        holder.textView.setText(data.get(position));
+        holder.bind(textSize, data.get(position), position);
     }
 
     @Override
@@ -58,6 +57,18 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             textView = itemView.findViewById(R.id.text_view);
+
+        }
+
+        public void bind(float textSize, String string, int position) {
+
+            textView.setTextSize(textSize < 14 ? 14 : textSize);
+
+            textView.setText(string);
+
+            itemView.setOnClickListener(v -> {
+                Log.e("Position", position + ", Data: " + string);
+            });
         }
     }
 }

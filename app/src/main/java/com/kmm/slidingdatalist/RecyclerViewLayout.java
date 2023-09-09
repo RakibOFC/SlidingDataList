@@ -9,15 +9,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class RecyclerViewFragment extends FrameLayout {
+public class RecyclerViewLayout extends FrameLayout {
     private RecyclerView recyclerView;
 
-    public RecyclerViewFragment(@NonNull Context context) {
+    public RecyclerViewLayout(@NonNull Context context) {
         super(context);
         init(context);
     }
 
     private void init(Context context) {
+
         View rootView = LayoutInflater.from(context).inflate(R.layout.fragment_recycler_view, this, true);
         recyclerView = rootView.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
