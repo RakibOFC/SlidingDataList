@@ -1,10 +1,12 @@
 package com.kmm.slidingdatalist;
 
 import android.annotation.SuppressLint;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.viewpager.widget.PagerAdapter;
 
 import java.util.ArrayList;
@@ -13,7 +15,7 @@ import java.util.List;
 public class ViewPagerAdapter extends PagerAdapter {
 
     private final int noOfList;
-    private RecyclerViewAdapter adapter;
+    private List<RecyclerViewAdapter> adapters = new ArrayList<>();
 
     public ViewPagerAdapter(int noOfList) {
         this.noOfList = noOfList;
@@ -22,13 +24,14 @@ public class ViewPagerAdapter extends PagerAdapter {
     @SuppressLint("NotifyDataSetChanged")
     public void setTextSizes(float textSize) {
 
-        try {
-            adapter.setTextSizes(textSize);
-            this.notifyDataSetChanged();
-
-        } catch (NullPointerException exception) {
-            exception.printStackTrace();
+        for (RecyclerViewAdapter adapter : adapters) {
+            try {
+                adapter.setTextSizes(textSize);
+            } catch (NullPointerException exception) {
+                exception.printStackTrace();
+            }
         }
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -42,7 +45,8 @@ public class ViewPagerAdapter extends PagerAdapter {
         }
 
         RecyclerViewLayout layoutView = new RecyclerViewLayout(container.getContext());
-        adapter = new RecyclerViewAdapter(stringList);
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(stringList);
+        adapters.add(adapter);
 
         layoutView.setAdapter(adapter);
         layoutView.setRotation(180);
@@ -53,6 +57,9 @@ public class ViewPagerAdapter extends PagerAdapter {
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
         container.removeView((RecyclerViewLayout) object);
+        if (position >= 0 && position < adapters.size()) {
+            adapters.remove(position);
+        }
     }
 
     @Override
@@ -63,5 +70,12 @@ public class ViewPagerAdapter extends PagerAdapter {
     @Override
     public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
         return view == object;
+    }
+
+    public RecyclerViewAdapter getCurrentPageAdapter(int position) {
+        if (position >= 0 && position < adapters.size()) {
+            return adapters.get(position);
+        }
+        return null;
     }
 }

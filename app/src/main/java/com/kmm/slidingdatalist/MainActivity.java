@@ -40,6 +40,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         viewPager.setAdapter(adapter);
         viewPager.setRotation(180);
         viewPager.setCurrentItem(4);
+
+        // adapter.getCurrentPageAdapter()
     }
 
     @Override
